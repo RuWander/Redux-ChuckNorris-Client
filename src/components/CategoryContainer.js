@@ -8,21 +8,29 @@ class CategoryContainer extends Component {
 
   componentDidMount() {
     this.props.actions.fetchQuote(this.props.match.params.category)
+    this.props.actions.fetchRandomQuote()
+    this.props.actions.fetchSearchQuote('food')
   }
   
   render() {
+    const {item, pending, error} = this.props
     return (
       <div>
-        Category item should go here
-        <img src={this.props.currentQuote.icon_url} alt={"Chuck Norris quote for category " + this.props.currentQuote.categories}/>
-        <p>{this.props.currentQuote.value}</p>
-        <p>Quote est {this.props.currentQuote.created_at}</p>
+        <h1>{pending ? <h1>Loading...</h1>: ''}</h1>
+        <img src={item.icon_url} alt={"Chuck Norris quote for category " + item.categories}/>
+        <p>{item.value}</p>
+        <p>{item.categories}</p>
+        <p>{item.created_at}</p>
       </div>
     )
   }
 }
 
-const mapSateToProps = (state) => state
+const mapSateToProps = (state) => ({
+  item: state.current_quote_item,
+  pending: state.current_quote_pending,
+  error: state.current_quote_error
+})
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(Actions, dispatch)

@@ -8,13 +8,11 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import rootReducer from "./store/reducers";
 import thunk from 'redux-thunk';
-import { fetchQuoteCategories } from './actions';
 
 const middlewares = [thunk]
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(rootReducer, {}, composeEnhancers(applyMiddleware(...middlewares)))
-// store.dispatch(fetchQuoteCategories())
 
 ReactDOM.render(
   <Provider store={store}>
