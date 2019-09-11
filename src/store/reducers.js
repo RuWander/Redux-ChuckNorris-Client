@@ -29,51 +29,89 @@ export const categories = (state = categoriesState, action) => {
   }
 }
 
-export const current_quote_item = (state = {}, action) =>
-  (action.type === C.FETCH_QUOTE_SUCCESS) ?
-    action.payload :
-    state
+const QuoteState = {
+  item: {},
+  pending: false,
+  error: null
+}
 
-export const current_quote_pending = (state = false, action) =>
-  (action.type === C.FETCH_QUOTE_PENDING) ?
-    action.payload :
-    state
+export const current_quote = (state = QuoteState, action) => {
+  switch (action.type) {
+    case C.FETCH_QUOTE_SUCCESS:
+      return {
+        ...state,
+        item: action.payload
+      }
+    case C.FETCH_QUOTE_PENDING:
+      return {
+        ...state,
+        pending: action.payload
+      }
+    case C.FETCH_QUOTE_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+    default:
+      return state
+  }
+}
 
-export const current_quote_error = (state = null, action) =>
-  (action.type === C.FETCH_QUOTE_ERROR) ?
-    action.payload :
-    state
+const RandomQuoteState = {
+  item: {},
+  pending: false,
+  error: null
+}
 
-export const random_quote_item = (state = {}, action) =>
-  (action.type === C.FETCH_RANDOMQUOTE_SUCCESS) ?
-    action.payload :
-    state
+export const random_quote = (state = RandomQuoteState, action) => {
+  switch (action.type) {
+    case C.FETCH_RANDOMQUOTE_SUCCESS:
+      return {
+        ...state,
+        item: action.payload
+      }
+    case C.FETCH_RANDOMQUOTE_PENDING:
+      return {
+        ...state,
+        pending: action.payload
+      }
+    case C.FETCH_RANDOMQUOTE_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+    default:
+      return state
+  }
+}
 
-export const random_quote_pending = (state = false, action) =>
-  (action.type === C.FETCH_RANDOMQUOTE_PENDING) ?
-    action.payload :
-    state
+const SearchQuoteState = {
+  items: [],
+  pending: false,
+  error: null
+}
 
-export const random_quote_error = (state = null, action) =>
-  (action.type === C.FETCH_RANDOMQUOTE_ERROR) ?
-    action.payload :
-    state
-
-
-export const search_quote_items = (state = [], action) =>
-  (action.type === C.FETCH_SEARCHQUOTE_SUCCESS) ?
-    action.payload :
-    state
-
-export const search_quote_pending = (state = false, action) =>
-  (action.type === C.FETCH_SEARCHQUOTE_PENDING) ?
-    action.payload :
-    state
-
-export const search_quote_error = (state = null, action) =>
-  (action.type === C.FETCH_SEARCHQUOTE_ERROR) ?
-    action.payload :
-    state
+export const search_quote = (state = SearchQuoteState, action) => {
+  switch (action.type) {
+    case C.FETCH_SEARCHQUOTE_SUCCESS:
+      return {
+        ...state,
+        items: action.payload.result
+      }
+    case C.FETCH_SEARCHQUOTE_PENDING:
+      return {
+        ...state,
+        pending: action.payload
+      }
+    case C.FETCH_SEARCHQUOTE_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+    default:
+      return state
+  }
+}
 
 export const errors = (state = [], action) => {
   switch (action.type) {
@@ -91,14 +129,8 @@ export const errors = (state = [], action) => {
 
 export default combineReducers({
   categories,
-  current_quote_item,
-  current_quote_pending,
-  current_quote_error,
-  random_quote_item,
-  random_quote_pending,
-  random_quote_error,
-  search_quote_items,
-  search_quote_pending,
-  search_quote_error,
+  current_quote,
+  random_quote,
+  search_quote,
   errors
 })

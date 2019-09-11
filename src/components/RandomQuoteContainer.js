@@ -27,9 +27,9 @@ class RandQuoteContainer extends Component {
 }
 
 const mapSateToProps = (state) => ({
-  item: state.random_quote_item,
-  pending: state.random_quote_pending,
-  error: state.random_quote_error
+  item: state.random_quote.item,
+  pending: state.random_quote.pending,
+  error: state.random_quote.error
 })
 
 const mapDispatchToProps = dispatch => ({

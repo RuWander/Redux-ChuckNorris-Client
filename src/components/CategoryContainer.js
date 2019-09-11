@@ -7,9 +7,9 @@ import { bindActionCreators } from 'redux';
 class CategoryContainer extends Component {
 
   componentDidMount() {
-    this.props.actions.fetchQuote(this.props.match.params.category)
+    // this.props.actions.fetchQuote(this.props.match.params.category)
     // this.props.actions.fetchRandomQuote()
-    // this.props.actions.fetchSearchQuote('food')
+    this.props.actions.fetchSearchQuote('food')
   }
   
   render() {
@@ -28,9 +28,9 @@ class CategoryContainer extends Component {
 }
 
 const mapSateToProps = (state) => ({
-  item: state.current_quote_item,
-  pending: state.current_quote_pending,
-  error: state.current_quote_error
+  item: state.current_quote.item,
+  pending: state.current_quote.pending,
+  error: state.current_quote.error
 })
 
 const mapDispatchToProps = dispatch => ({
