@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 
 
-class Home extends Component {
+class HomeContainer extends Component {
 
   componentDidMount() {
     this.props.actions.fetchQuoteCategories()
@@ -25,12 +25,12 @@ class Home extends Component {
 }
 
 const mapSateToProps = (state) => ({
-  items: state.categories_items,
-  pending: state.categories_pending,
-  error: state.categories_error
+  items: state.categories.items,
+  pending: state.categories.pending,
+  error: state.categories.error
 })
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(Actions, dispatch)
 });
 
-export default connect(mapSateToProps, mapDispatchToProps)(Home)
+export default connect(mapSateToProps, mapDispatchToProps)(HomeContainer)

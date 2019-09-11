@@ -8,8 +8,8 @@ class CategoryContainer extends Component {
 
   componentDidMount() {
     this.props.actions.fetchQuote(this.props.match.params.category)
-    this.props.actions.fetchRandomQuote()
-    this.props.actions.fetchSearchQuote('food')
+    // this.props.actions.fetchRandomQuote()
+    // this.props.actions.fetchSearchQuote('food')
   }
   
   render() {
@@ -17,6 +17,7 @@ class CategoryContainer extends Component {
     return (
       <div>
         <h1>{pending ? <h1>Loading...</h1>: ''}</h1>
+        <h1>{error ? <h1>Sorry but some kind of error occurred, maybe try again later..</h1>: ''}</h1>
         <img src={item.icon_url} alt={"Chuck Norris quote for category " + item.categories}/>
         <p>{item.value}</p>
         <p>{item.categories}</p>

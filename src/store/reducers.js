@@ -1,20 +1,33 @@
 import C from '../constants';
 import { combineReducers } from 'redux';
 
-export const categories_items = (state = [], action) =>
-  (action.type === C.FETCH_CATEGORIES_SUCCESS) ?
-    action.payload :
-    state
+const categoriesState = {
+  items: [],
+  pending: false,
+  error: null
+}
 
-export const categories_pending = (state = false, action) =>
-  (action.type === C.FETCH_CATEGORIES_PENDING) ?
-    action.payload :
-    state
-
-export const categories_error = (state = null, action) =>
-  (action.type === C.FETCH_CATEGORIES_ERROR) ?
-    action.payload :
-    state
+export const categories = (state = categoriesState, action) => {
+  switch (action.type) {
+    case C.FETCH_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        items: action.payload
+      }
+    case C.FETCH_CATEGORIES_PENDING:
+      return {
+        ...state,
+        pending: action.payload
+      }
+    case C.FETCH_CATEGORIES_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      }
+    default:
+      return state
+  }
+}
 
 export const current_quote_item = (state = {}, action) =>
   (action.type === C.FETCH_QUOTE_SUCCESS) ?
@@ -77,9 +90,7 @@ export const errors = (state = [], action) => {
 }
 
 export default combineReducers({
-  categories_items,
-  categories_pending,
-  categories_error,
+  categories,
   current_quote_item,
   current_quote_pending,
   current_quote_error,
