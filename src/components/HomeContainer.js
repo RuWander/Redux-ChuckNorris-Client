@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import { Link } from "react-router-dom";
 import { bindActionCreators } from 'redux';
 
+import Container from '@material-ui/core/Container';
+import Typography from '@material-ui/core/Typography';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Chip from '@material-ui/core/Chip';
 
 class HomeContainer extends Component {
 
@@ -12,15 +16,22 @@ class HomeContainer extends Component {
   }
 
   render() {
-    // console.log(this.props.pending)
     return (
-      <div>
-      {this.props.pending ? <h1>pending...</h1> : '' }
-      {this.props.pending ? console.log('loading') : ''}
-      {this.props.items ? this.props.items.map((a, i) => <Link className="list-group-item list-group-item-action" key={i} onClick={() => (this.props.actions.fetchQuote(a))} to={`/currentQuote/${a}`} >{a}</Link>) : ''}
-    </div>
+      <Container maxWidth="md">
+        <Typography variant="h2" component="h2" style={{marginBottom: '20px'}}>
+          The Awe of Chuck Norris
+        </Typography>
+        {this.props.pending ? <LinearProgress style={{ marginTop: '20px', marginBottom: '20px' }} /> : ''}
+        <Fragment>
+          {this.props.items ?
+            this.props.items.map((a, i) => (
+                <Chip variant="outlined" color="primary" label={a} component={Link} to={`/currentQuote/${a}`} style={{margin:'5px'}} />
+              )
+            ) : ''}
+        </Fragment>
+      </Container>
     )
-    
+
   }
 }
 

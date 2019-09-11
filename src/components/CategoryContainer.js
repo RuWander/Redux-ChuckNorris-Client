@@ -2,27 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import { bindActionCreators } from 'redux';
-
+import Category from './ui/Category';
+import Container from '@material-ui/core/Container'
+import { withRouter } from "react-router";
 
 class CategoryContainer extends Component {
+  state = {
+    path: ''
+  }
 
   componentDidMount() {
-    // this.props.actions.fetchQuote(this.props.match.params.category)
-    // this.props.actions.fetchRandomQuote()
-    this.props.actions.fetchSearchQuote('food')
+    this.props.actions.fetchQuote(this.props.match.params.category)
+    this.setState({path: this.props.match.params.category})
   }
+
+  
   
   render() {
     const {item, pending, error} = this.props
+
+    if (this.props.match.params.category !== this.state.path && this.state.path !== '') {
+      this.props.actions.fetchQuote(this.props.match.params.category)
+      this.setState({path: this.props.match.params.category})
+    }
     return (
-      <div>
-        <h1>{pending ? <h1>Loading...</h1>: ''}</h1>
-        <h1>{error ? <h1>Sorry but some kind of error occurred, maybe try again later..</h1>: ''}</h1>
-        <img src={item.icon_url} alt={"Chuck Norris quote for category " + item.categories}/>
-        <p>{item.value}</p>
-        <p>{item.categories}</p>
-        <p>{item.created_at}</p>
-      </div>
+      <Container maxWidth="md">
+        <Category category={this.props.match.params.category} item={item} pending={pending} error={error} />
+      </Container>
     )
   }
 }
@@ -37,4 +43,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(Actions, dispatch)
 });
 
-export default connect(mapSateToProps, mapDispatchToProps)(CategoryContainer)
+export default withRouter(connect(mapSateToProps, mapDispatchToProps)(CategoryContainer))

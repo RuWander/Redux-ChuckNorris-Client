@@ -1,7 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import { bindActionCreators } from 'redux';
+import Category from './ui/Category';
+import Container from '@material-ui/core/Container'
 
 
 class RandQuoteContainer extends Component {
@@ -13,14 +15,9 @@ class RandQuoteContainer extends Component {
   render() {
     const { item, pending, error } = this.props
     return (
-      <Fragment>
-        <h1>{pending ? <h1>Loading...</h1> : ''}</h1>
-        <h1>{error ? <h1>Some error occurred</h1> : ''}</h1>
-        <img src={item.icon_url} alt={"Chuck Norris quote for category " + item.categories} />
-        <p>{item ? item.value : 'nothing here'}</p>
-        <p>{item.categories}</p>
-        <p>{item.created_at}</p>
-      </Fragment>
+      <Container maxWidth="md">
+        <Category category={this.props.match.params.category} item={item} pending={pending} error={error} />
+      </Container>
     )
   }
 
