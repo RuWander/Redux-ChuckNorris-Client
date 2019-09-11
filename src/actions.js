@@ -8,7 +8,6 @@ export const fetchQuoteCategories = () => dispatch => {
   fetch("https://api.chucknorris.io/jokes/categories")
     .then(response => response.json())
     .then(categories => {
-      console.log(categories)
       if (categories.error) {
         dispatch({
           type: C.FETCH_CATEGORIES_ERROR,
