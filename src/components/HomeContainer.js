@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import CategoryList from './ui/CategoryList';
-
+import SearchQuoteContainer from './SearchQuoteContainer';
 
 class HomeContainer extends Component {
 
@@ -38,6 +38,9 @@ class HomeContainer extends Component {
         <Typography variant="h5" component="p" style={{ marginBottom: '20px' }}>
           Start typing to start chuckling...  ;-)
         </Typography>
+
+        <SearchQuoteContainer />
+
       </Container>
     )
 
