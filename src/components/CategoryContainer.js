@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import { bindActionCreators } from 'redux';
@@ -6,31 +6,20 @@ import Category from './ui/Category';
 import Container from '@material-ui/core/Container'
 import { withRouter } from "react-router";
 
-class CategoryContainer extends Component {
-  state = {
-    path: ''
-  }
+const CategoryContainer = (props) => {
+  const routeCategory = props.match.params.category
+  const { item, pending, error } = props
 
-  componentDidMount() {
-    this.props.actions.fetchQuote(this.props.match.params.category)
-    this.setState({path: this.props.match.params.category})
-  }
+  useEffect(() => {
+    props.actions.fetchQuote(routeCategory)
+  }, [routeCategory])
 
-  
-  
-  render() {
-    const {item, pending, error} = this.props
+  return (
+    <Container maxWidth="md">
+      <Category category={routeCategory} item={item} pending={pending} error={error} />
+    </Container>
+  )
 
-    if (this.props.match.params.category !== this.state.path && this.state.path !== '') {
-      this.props.actions.fetchQuote(this.props.match.params.category)
-      this.setState({path: this.props.match.params.category})
-    }
-    return (
-      <Container maxWidth="md">
-        <Category category={this.props.match.params.category} item={item} pending={pending} error={error} />
-      </Container>
-    )
-  }
 }
 
 const mapSateToProps = (state) => ({
