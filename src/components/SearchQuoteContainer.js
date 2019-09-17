@@ -17,9 +17,6 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
-import Badge from '@material-ui/core/Badge';
-
-
 
 const useStyles = makeStyles(theme => ({
   progress: {
