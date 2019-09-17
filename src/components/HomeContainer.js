@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as Actions from '../actions';
 import { bindActionCreators } from 'redux';
@@ -8,13 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import CategoryList from './ui/CategoryList';
 import SearchQuoteContainer from './SearchQuoteContainer';
 
-class HomeContainer extends Component {
+const HomeContainer = (props) => {
 
-  componentDidMount() {
-    this.props.actions.fetchQuoteCategories()
-  }
-
-  render() {
+  useEffect(() => {
+    props.actions.fetchQuoteCategories()
+  },[])
+  
     return (
       <Container maxWidth="md">
         <Typography variant="h2" component="h2" style={{ marginBottom: '20px' }}>
@@ -30,7 +29,7 @@ class HomeContainer extends Component {
           Choose a category an we will fetch you a unique quote
         </Typography>
         
-        <CategoryList items={this.props.items} pending={this.props.pending} error={this.props.error} />
+        <CategoryList items={props.items} pending={props.pending} error={props.error} />
 
         <Typography variant="h2" component="h2" style={{ marginTop: '100px', marginBottom: '20px' }}>
           You can search for quotes
@@ -44,7 +43,6 @@ class HomeContainer extends Component {
       </Container>
     )
 
-  }
 }
 
 const mapSateToProps = (state) => ({
